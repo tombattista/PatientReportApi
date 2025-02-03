@@ -18,8 +18,8 @@ if (isDevelopment)
     // Handle CORS for local development
     builder.Services.AddCors(options =>
     {
-        options.AddPolicy("AllowLocalhost5173",
-            builder => builder.WithOrigins("http://localhost:5173", "https://localhost:5173")
+        options.AddPolicy("AllowLocalhost3000",
+            builder => builder.WithOrigins("http://localhost:3000", "https://localhost:3000")
                               .AllowAnyHeader()
                               .AllowAnyMethod());
     });
@@ -44,7 +44,7 @@ builder.Services.AddSwaggerGen();
 
 // Build app
 var app = builder.Build();
-app.UseCors("AllowLocalhost5173");
+app.UseCors("AllowLocalhost3000");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
