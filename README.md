@@ -4,7 +4,7 @@ C# restful API for retrieving patient reports.
 - Clone this repository locally into your repos directory
 - Open in Visual Studio Code
   - Build the solution
-    - Open Powershell terminal
+    - Open Visual Studio developer terminal
     - Navigate into project directory: .../repos/PatientReportApi/PatientReportApi
     - build the api
     - Run the api
