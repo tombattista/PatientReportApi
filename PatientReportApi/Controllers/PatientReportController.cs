@@ -31,9 +31,10 @@ public class PatientReportController(ILogger<PatientReportController> logger, IR
     }
 
     [HttpGet("patient/{name}")]
-    public ActionResult<PatientReport> GetPatientReports(string name)
+    public ActionResult<IEnumerable<PatientReport>> GetPatientReports(string name)
     {
         _logger.LogInformation("Retrieving all patient reports.", [name]);
-        return Ok(_reportService.GetReports(name));
+        List<PatientReport> result = _reportService.GetReports(name).ToList();
+        return Ok(result);
     }
 }
