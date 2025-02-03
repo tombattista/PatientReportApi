@@ -1,13 +1,14 @@
 ﻿using PatientReportApi.CustomExceptions;
 using PatientReportApi.Models;
 using PatientReportApi.Repositories.Interfaces;
+using System.Text.Json;
 
 namespace PatientReportApi.Repositories;
 
 /// <inheritdoc />
-public class InMemoryReportRepository(ILogger<InMemoryReportRepository> logger) : IInMemoryReportRepository
+public class InMemoryReportRepository : IInMemoryReportRepository
 {
-    private readonly ILogger<InMemoryReportRepository> _logger = logger;
+    private readonly ILogger<InMemoryReportRepository> _logger;
     private readonly List<PatientReport> _items = [
         new PatientReport()
         {
@@ -47,6 +48,16 @@ public class InMemoryReportRepository(ILogger<InMemoryReportRepository> logger) 
             Summary = @"Too much glue on a 3x5 index card leads to tachycardia."
         }
     ];
+
+    /// <summary>
+    /// Constructor - load data
+    /// </summary>
+    /// <param name="logger"></param>
+    public InMemoryReportRepository(ILogger<InMemoryReportRepository> logger)
+    {
+        _logger = logger;
+        _ = LoadDataFromFile();
+    }
 
     /// <inheritdoc />
     public IEnumerable<PatientReport> GetAll() => _items;
@@ -111,5 +122,21 @@ public class InMemoryReportRepository(ILogger<InMemoryReportRepository> logger) 
 
         _logger.LogWarning($"Unable to delete PatientReport. Item with id {id} does not exist.");
         return true;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private async Task LoadDataFromFile()
+    {
+        string filePath = "";
+        string jsonString = await File.ReadAllTextAsync(filePath);
+        PatientReport[]? data = JsonSerializer.Deserialize<PatientReport[]>(jsonString);
+
+        if (data is not null)
+        {
+            _items.Clear();
+            _items.AddRange(data);
+        }
     }
 }

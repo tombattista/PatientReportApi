@@ -1,0 +1,62 @@
+﻿[
+  {
+    "Id": "41e3432a-6577-4912-8784-af989d18f1ad",
+    "PatientName": "Tom Battista",
+    "ReportDate": "12/26/2024",
+    "Summary": "Summary text for 1..."
+  },
+  {
+    "Id": "374671ab-ae98-43d1-afeb-1203cc5e5477",
+    "PatientName": "Tom Battista",
+    "ReportDate": "12/01/2024",
+    "Summary": "Tachycardia is a medical condition characterized by an abnormally fast heart rate.It can be caused by various factors, including stress, anxiety, or an underlying health condition.Symptoms may include dizziness, shortness of breath, and fatigue.Treatment typically involves lifestyle changes, medications, or medical interventions to correct the heart rate."
+  },
+  {
+    "Id": "0c53a5a6-35e6-47f8-af78-a5340e9107d8",
+    "PatientName": "Tom Battista",
+    "ReportDate": "11/18/2024",
+    "Summary": "Arrhythmia refers to an irregular heartbeat, which can manifest as a variation in the rhythm or rate of the heart's contractions."
+  },
+  {
+    "Id": "5f84f517-f13f-4391-973c-30b0b30138a5",
+    "PatientName": "Tom Battista",
+    "ReportDate": "10/18/2024",
+    "Summary": "Wherein the heart flutters eratically, therein shall arrhythmia be found."
+  },
+  {
+    "Id": "b074a6b2-366a-472f-b222-00570cd71a28",
+    "PatientName": "Julie Battista",
+    "ReportDate": "12/18/2024",
+    "Summary": "Too much glue on a 3x5 index card leads to tachycardia."
+  },
+  {
+    "Id": "6cee2716-47a2-46a6-9cbb-4ad03a562f08",
+    "PatientName": "Julie Battista",
+    "ReportDate": "11/18/2024",
+    "Summary": "Fabricated summaries are fairly useless to primary care providers."
+  },
+  {
+    "Id": "ae811f46-f931-4296-b37e-b548fb6d89a4",
+    "PatientName": "Jerry Seinfeld",
+    "ReportDate": "1/8/2020",
+    "Summary": "Comedians are great."
+  },
+  {
+    "Id": "aed54439-23df-4f92-94b9-7f495c118478",
+    "PatientName": "Jerry Seinfeld",
+    "ReportDate": "2/8/2020",
+    "Summary": "Funny guys provide levity."
+  },
+  {
+    "Id": "785f7b61-7b9a-4fec-90bc-e0b4eac98cd8",
+    "PatientName": "Jerry Seinfeld",
+    "ReportDate": "3/8/2020",
+    "Summary": "Wise guys can grate."
+  },
+  {
+    "Id": "dfffc3ba-cc1f-4a8b-9093-9973c8e9c6a8",
+    "PatientName": "Jerry Seinfeld",
+    "ReportDate": "4/8/2020",
+    "Summary": "Smart donkeys like ogres."
+  }
+]
