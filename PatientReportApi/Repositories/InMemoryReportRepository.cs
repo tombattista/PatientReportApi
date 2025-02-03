@@ -1,6 +1,7 @@
 ﻿using PatientReportApi.CustomExceptions;
 using PatientReportApi.Models;
 using PatientReportApi.Repositories.Interfaces;
+using System;
 using System.Text.Json;
 
 namespace PatientReportApi.Repositories;
@@ -9,6 +10,8 @@ namespace PatientReportApi.Repositories;
 public class InMemoryReportRepository : IInMemoryReportRepository
 {
     private readonly ILogger<InMemoryReportRepository> _logger;
+    private readonly IConfiguration _configuration;
+
     private readonly List<PatientReport> _items = [
         new PatientReport()
         {
@@ -53,10 +56,11 @@ public class InMemoryReportRepository : IInMemoryReportRepository
     /// Constructor - load data
     /// </summary>
     /// <param name="logger"></param>
-    public InMemoryReportRepository(ILogger<InMemoryReportRepository> logger)
+    public InMemoryReportRepository(ILogger<InMemoryReportRepository> logger, IConfiguration configuration)
     {
         _logger = logger;
-        _ = LoadDataFromFile();
+        _configuration = configuration;
+        LoadData().GetAwaiter().GetResult();
     }
 
     /// <inheritdoc />
@@ -125,18 +129,51 @@ public class InMemoryReportRepository : IInMemoryReportRepository
     }
 
     /// <summary>
-    /// 
+    /// Loads data into _items collection.
     /// </summary>
-    private async Task LoadDataFromFile()
+    private async Task LoadData()
     {
-        string filePath = "";
-        string jsonString = await File.ReadAllTextAsync(filePath);
-        PatientReport[]? data = JsonSerializer.Deserialize<PatientReport[]>(jsonString);
+        string url = GetDataUrl();
+
+        PatientReport[] data = await FetchData(url);
 
         if (data is not null)
         {
             _items.Clear();
             _items.AddRange(data);
         }
+    }
+
+    /// <summary>
+    /// Fetches data from via Http call.
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
+    private async Task<PatientReport[]> FetchData(string url)
+    {
+        using HttpClient client = new();
+        HttpResponseMessage response = await client.GetAsync(url);
+        response.EnsureSuccessStatusCode();
+
+        string jsonResponse = (await response.Content.ReadAsStringAsync()).Trim('"');
+        try
+        {
+            PatientReport[] data = JsonSerializer.Deserialize<PatientReport[]>(jsonResponse) ?? [];
+            return data;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(new RepositoryException("Unable to parse report data.", ex), ex.Message);
+        }
+        return [];
+    }
+
+    /// <summary>
+    /// Gets url from app settings.
+    /// </summary>
+    /// <returns></returns>
+    private string GetDataUrl()
+    {
+        return _configuration["AppSettings:ReportFilePath"] ?? "";
     }
 }
